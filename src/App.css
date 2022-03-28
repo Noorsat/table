@@ -1,8 +1,14 @@
+.App {
+  max-width: 1290px;
+  margin: 0 auto;
+}
 .films {
   display: flex;
+  flex-wrap: wrap;
 }
 .card {
-  margin-right: 30px;
+  margin-right: 15px;
+  margin-bottom: 15px;
   position: relative;
   z-index: -1;
 }
