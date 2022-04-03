@@ -1,51 +1,86 @@
-.App {
-  max-width: 1290px;
-  margin: 0 auto;
-}
-.films {
-  display: flex;
-  flex-wrap: wrap;
-}
-.card {
-  margin-right: 15px;
-  margin-bottom: 15px;
-  position: relative;
-  z-index: -1;
-}
-.content {
-  padding: 20px;
-  position: absolute;
-  bottom: 20px;
-  z-index: 13438482929;
-}
-.descr,
-.title {
-  color: #fff;
-  font-weight: 700;
-}
-.overlay {
-  background: #000;
-  position: absolute;
-  opacity: 0.5;
-  z-index: 10000000;
-  width: 412px;
-  height: 600px;
-  top: 0;
-  margin-right: 20px;
-}
 *,
 body {
+  padding: 0;
+  margin: 0;
   font-family: "Montserrat Alternates", sans-serif;
 }
-
-.descr {
-  color: lightskyblue;
-  background: rgba(150, 166, 182, 0.6);
-  width: 140px;
+h1 {
   text-align: center;
-  border-radius: 7px;
-  margin-bottom: 30px;
+  padding: 20px 0;
 }
-.ratings {
-  margin-bottom: 30px;
+h1 span {
+  color: rgb(52, 52, 240) !important;
+}
+.cards {
+  max-width: 1140px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+.card__img {
+  position: relative;
+}
+.card__img img {
+  border-top-left-radius: 10px !important;
+  border-top-right-radius: 10px !important;
+  width: 295px;
+}
+.card__status {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  padding: 5px 8px;
+  border-radius: 5px;
+}
+.card {
+  border: 1px solid blue !important;
+  border-radius: 10px !important;
+  max-width: 300px !important;
+  margin-bottom: 25px;
+}
+.card__name {
+  font-weight: 700;
+  font-size: 16px;
+  color: #000 !important;
+  text-decoration: none !important;
+  margin-bottom: 25px;
+  padding-left: 10px;
+  padding-top: 15px;
+}
+.card__location p {
+  font-size: 14px;
+  color: rgb(51, 46, 46) !important;
+  margin-bottom: 5px;
+}
+.card__location {
+  padding-left: 10px;
+  margin-bottom: 15px;
+  color: #000;
+}
+.filters {
+  width: 400px;
+  margin: 0 auto;
+}
+.card__section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+.card__section .card {
+  border: none !important;
+}
+.card__section .card__name {
+  text-align: center;
+  font-size: 24px;
+}
+.card__section .card__status {
+  position: relative !important;
+  right: 0 !important;
+  text-align: center;
+}
+.card__section .card__location {
+  margin-bottom: 0;
+  padding-left: 0;
 }
