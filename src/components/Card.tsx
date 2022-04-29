@@ -5,7 +5,6 @@ import './../App.css'
 const Card = ({data}) => {
     const {id} = useParams();
     const item = data[id-1];
-    console.log(item);
   return (
       <>
       <div style={{textAlign: 'center'}} className="pt-3">

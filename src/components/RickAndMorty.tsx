@@ -1,92 +1,98 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import './../App.css'
 import {Form, Button} from  'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Pagination from './Pagination';
+import Pagination from './Pagination.tsx';
 import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { findCharacters, fetchCharacters, maleCheckbox, femaleCheckbox, aliveCheckbox, deadCheckbox,unknownCheckbox } from '../store/action.ts';
 
 const RickAndMorty = ({data, loading}) => {
+  const characters = useSelector(state => state.characters.characters);
   const [inputText, setInputText] = useState('');
-  const [selectedPersons, setSelectedPersons] = useState(data);
+  const [selectedPersons, setSelectedPersons] = useState(characters);
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage, setPostsPerPage] = useState(6);
   
-  const [maleCheckbox, setMaleCheckbox] = useState(false);
-  const [femaleCheckbox, setFemaleCheckbox] = useState(false);
-  const [aliveCheckbox, setAliveCheckbox] = useState(false);
-  const [deadCheckbox, setDeadCheckbox] = useState(false);
-  const [unknownCheckbox, setUnknownCheckbox] = useState(false);
+
+
+  const dispatch = useDispatch(); 
+
+  useEffect(() => {
+    setSelectedPersons(characters)
+  }, [characters])
+
+  console.log(characters);  
+  
 
   const searchHandler = () => {
-    setSelectedPersons(data.filter(item => item.name.toLowerCase().includes(inputText.toLowerCase())));
+    if (inputText === ""){
+        fetch('https://rickandmortyapi.com/api/character').then(response => {
+          if (response.ok){
+            return response.json();
+          }
+          throw response;
+          }).then(data => {
+            dispatch(fetchCharacters(data.results))
+          })
+    }else{
+      dispatch(findCharacters(inputText))
+    }
   }
 
-  
+
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage; 
   const currentPosts = selectedPersons.slice(indexOfFirstPost, indexOfLastPost) 
 
   const checkboxHandler = (type) => {
     if (type === "male"){
-      setMaleCheckbox(!maleCheckbox);
-      setFemaleCheckbox(false);
-      setAliveCheckbox(false);
-      setDeadCheckbox(false);
-      setUnknownCheckbox(false);
-      if (!maleCheckbox){
-        setSelectedPersons(data.filter(item => item.gender === 'Male'))
-      }else{
-        setSelectedPersons(data)
-      }
+      fetch('https://rickandmortyapi.com/api/character').then(response => {
+          if (response.ok){
+            return response.json();
+          }
+          throw response;
+          }).then(data => {
+            dispatch(maleCheckbox(data.results))
+          })
     }else if (type === "female"){
-      setFemaleCheckbox(!femaleCheckbox);
-      setMaleCheckbox(false);
-      setAliveCheckbox(false);
-      setDeadCheckbox(false);
-      setUnknownCheckbox(false);
-      if (!femaleCheckbox){
-        setSelectedPersons(data.filter(item => item.gender === 'Female'))
-      }else{
-        setSelectedPersons(data)
-      }
+      fetch('https://rickandmortyapi.com/api/character').then(response => {
+          if (response.ok){
+            return response.json();
+          }
+          throw response;
+          }).then(data => {
+            dispatch(femaleCheckbox(data.results))
+          })
     }else if (type === "alive"){
-      setAliveCheckbox(!aliveCheckbox);
-      setDeadCheckbox(false);
-      setUnknownCheckbox(false);
-      setMaleCheckbox(false);
-      setFemaleCheckbox(false); 
-
-      if (!aliveCheckbox){
-        setSelectedPersons(data.filter(item => item.status === 'Alive'));
-      }else{
-        setSelectedPersons(data)
-      }
+      fetch('https://rickandmortyapi.com/api/character').then(response => {
+        if (response.ok){
+          return response.json();
+        }
+        throw response;
+        }).then(data => {
+          dispatch(aliveCheckbox(data.results))
+        })
     }else if (type === "dead"){
-      setDeadCheckbox(!deadCheckbox);
-      setUnknownCheckbox(false);
-      setMaleCheckbox(false);
-      setFemaleCheckbox(false); 
-      setAliveCheckbox(false);
-
-      if (!deadCheckbox){
-        setSelectedPersons(data.filter(item => item.status === 'Dead'));
-      }else{
-        setSelectedPersons(data)
-      }
+      fetch('https://rickandmortyapi.com/api/character').then(response => {
+        if (response.ok){
+          return response.json();
+        }
+        throw response;
+        }).then(data => {
+          dispatch(deadCheckbox(data.results))
+        })
 
     }else if (type === "unknown"){
-      setUnknownCheckbox(!unknownCheckbox);
-      setDeadCheckbox(false);
-      setMaleCheckbox(false);
-      setFemaleCheckbox(false); 
-      setAliveCheckbox(false);
+      fetch('https://rickandmortyapi.com/api/character').then(response => {
+        if (response.ok){
+          return response.json();
+        }
+        throw response;
+        }).then(data => {
+          dispatch(unknownCheckbox(data.results))
+        })
 
-
-      if (!unknownCheckbox){
-        setSelectedPersons(data.filter(item => item.status === 'unknown'));
-      }else{
-        setSelectedPersons(data)
-      }
     }
   }
 
